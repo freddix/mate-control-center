@@ -1,0 +1,54 @@
+diff -aurN mate-control-center-2.28.0.orig/font-viewer/Makefile.am mate-control-center-2.28.0/font-viewer/Makefile.am
+--- mate-control-center-2.28.0.orig/font-viewer/Makefile.am	2009-09-24 11:34:15.000000000 +0200
++++ mate-control-center-2.28.0/font-viewer/Makefile.am	2009-09-24 11:41:45.000000000 +0200
+@@ -28,11 +28,15 @@
+ install-gconf-schemas:
+ endif
+ 
++if ENABLE_UPDATE_DESKTOP
+ install-desktop-database: install-desktopDATA
+-	update-desktop-database $(DESTDIR)$(desktopdir)
++	$(UPDATE_DESKTOP_DATABASE) $(DESTDIR)$(desktopdir)
+ 
+ uninstall-local:
+ 	rm -f $(DESTDIR)$(desktopdir)/mimeinfo.cache
++else
++install-desktop-database:
++endif
+ 
+ @INTLTOOL_DESKTOP_RULE@
+ @INTLTOOL_DIRECTORY_RULE@
+diff -aurN mate-control-center-2.28.0.orig/Makefile.am mate-control-center-2.28.0/Makefile.am
+--- mate-control-center-2.28.0.orig/Makefile.am	2009-09-24 11:34:15.000000000 +0200
++++ mate-control-center-2.28.0/Makefile.am	2009-09-24 11:36:11.000000000 +0200
+@@ -46,7 +46,7 @@
+ 	MAINTAINERS \
+ 	mate-doc-utils.make
+ 
+-DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper --disable-update-mimedb
++DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper --disable-update-mimedb --disable-update-desktop
+ 
+ GITIGNOREFILES=m4
+ 
+diff -aurN mate-control-center-1.6.1.orig/configure.ac mate-control-center-1.6.1/configure.ac
+--- mate-control-center-1.6.1.orig/configure.ac	2013-10-27 12:00:18.560187127 +0100
++++ mate-control-center-1.6.1/configure.ac	2013-10-27 12:02:21.450908663 +0100
+@@ -289,6 +289,18 @@
+                    enable_update_mimedb=yes)
+ AM_CONDITIONAL(ENABLE_UPDATE_MIMEDB, test x$enable_update_mimedb = xyes)
+ 
++dnl =======================================
++dnl Update Desktop Database
++dnl =======================================
++
++AC_PATH_PROG(UPDATE_DESKTOP_DATABASE, update-desktop-database, no)
++
++AC_ARG_ENABLE(update-desktop,
++   AC_HELP_STRING([--disable-update-desktop],
++                   [do not update destop database after installation]),,
++                   enable_update_desktop=yes)
++AM_CONDITIONAL(ENABLE_UPDATE_DESKTOP, test x$enable_update_desktop = xyes)
++
+ dnl ****************************************************************************
+ dnl * using Ubuntu hacks
+ dnl ****************************************************************************

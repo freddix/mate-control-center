@@ -1,0 +1,22 @@
+diff -aurN mate-control-center-1.6.1.orig/capplets/Makefile.am mate-control-center-1.6.1/capplets/Makefile.am
+--- mate-control-center-1.6.1.orig/capplets/Makefile.am	2013-10-27 12:00:18.566187356 +0100
++++ mate-control-center-1.6.1/capplets/Makefile.am	2013-10-27 12:05:08.668333258 +0100
+@@ -8,8 +8,7 @@
+ 	keybindings \
+ 	mouse \
+ 	network \
+-	windows \
+-        about-me
++	windows
+ 
+ DIST_SUBDIRS = \
+ 	common \
+@@ -21,7 +20,6 @@
+ 	mouse \
+ 	network \
+ 	windows \
+-	display \
+-	about-me
++	display
+ 
+ -include $(top_srcdir)/git.mk
