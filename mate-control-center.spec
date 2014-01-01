@@ -1,11 +1,11 @@
 Summary:	MATE Control Center
 Name:		mate-control-center
-Version:	1.6.1
-Release:	5
+Version:	1.6.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	a5f5b3c6070f3dafacaf68f6d896ef50
+# Source0-md5:	d60dd049dab2163c7208478d962bf4db
 Patch0:		%{name}-desktop-update.patch
 Patch1:		%{name}-no-about-me.patch
 URL:		http://wiki.mate-desktop.org/mate-control-center
