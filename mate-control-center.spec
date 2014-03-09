@@ -1,41 +1,39 @@
 Summary:	MATE Control Center
 Name:		mate-control-center
-Version:	1.6.2
-Release:	1
+Version:	1.8.0
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	d60dd049dab2163c7208478d962bf4db
+Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
+# Source0-md5:	752c4210541b17e842ba09af63e2410a
 Patch0:		%{name}-desktop-update.patch
 Patch1:		%{name}-no-about-me.patch
 URL:		http://wiki.mate-desktop.org/mate-control-center
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
+BuildRequires:	caja-devel >= 1.8.0
 BuildRequires:	dbus-glib-devel
 BuildRequires:	dconf-devel
 BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-doc-utils
 BuildRequires:	intltool
-BuildRequires:	libmatekbd-devel
+BuildRequires:	libmatekbd-devel >= 1.8.0
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
-BuildRequires:	mate-desktop-devel
-BuildRequires:	mate-doc-utils
-BuildRequires:	mate-file-manager-devel
-BuildRequires:	mate-menus-devel
-BuildRequires:	mate-panel-devel
-BuildRequires:	mate-settings-daemon-devel
-BuildRequires:	mate-window-manager-devel
+BuildRequires:	marco-devel
+BuildRequires:	mate-desktop-devel >= 1.8.0
+BuildRequires:	mate-menus-devel >= 1.8.0
+BuildRequires:	mate-panel-devel >= 1.8.0
+BuildRequires:	mate-settings-daemon-devel >= 1.8.0
 BuildRequires:	xorg-libXxf86misc-devel
 BuildRequires:	xorg-libxkbfile-devel
+BuildRequires:	yelp-tools
 Requires(post,postun):	/usr/bin/gtk-update-icon-cache
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib-gio-gsettings
-Requires(post,postun):	rarian
 Requires(post,postun):	shared-mime-info
-Requires:	libmatekbd-runtime
+Requires:	libmatekbd-runtime >= 1.8.0
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,7 +67,6 @@ MATE Control-Center header files.
     -i -e '/MATE_DEBUG_CHECK/d' configure.ac
 
 %build
-%{__gnome_doc_prepare}
 %{__glib_gettextize}
 %{__intltoolize}
 %{__libtoolize}
@@ -79,7 +76,6 @@ MATE Control-Center header files.
 %{__automake}
 %configure \
 	--disable-schemas-compile	\
-	--disable-scrollkeeper		\
 	--disable-silent-rules		\
 	--disable-static		\
 	--disable-update-desktop	\
@@ -99,20 +95,18 @@ install -d $RPM_BUILD_ROOT%{_datadir}/mate-background-properties \
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/{*,*/*}.la
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{ca@valencia,en@shaw}
 
-%find_lang %{name} --with-mate --with-omf --all-name
+%find_lang %{name} --with-mate --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%scrollkeeper_update_post
 %update_mime_database
 %update_desktop_database
 %update_icon_cache hicolor
 %update_gsettings_cache
 
 %postun
-%scrollkeeper_update_postun
 %update_desktop_database
 %update_mime_database
 %update_icon_cache hicolor
