@@ -1,11 +1,11 @@
 Summary:	MATE Control Center
 Name:		mate-control-center
-Version:	1.8.1
+Version:	1.8.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	03785befc0608dd1bd113c272c4d40e0
+# Source0-md5:	544fb6119344428acb577f05cc49fe13
 Patch0:		%{name}-desktop-update.patch
 Patch1:		%{name}-no-about-me.patch
 URL:		http://wiki.mate-desktop.org/mate-control-center
